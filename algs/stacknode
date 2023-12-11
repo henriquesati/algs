@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node{
+    char letra;
+    struct node *next;
+} node;
+
+typedef struct{
+    node** node;
+    int n_itens;
+    int capacity;
+} stack;
+
+node* init(char letra){
+    node *node = malloc(sizeof(node));
+    node->letra = letra;
+    node->next = NULL;
+    return node;
+}
+void init_stack(stack* stack){
+    stack->node = malloc(sizeof(node**));
+    stack->n_itens =0;
+    stack->capacity = 1;
+}
+void push(stack* stack, node* nodetmp){
+    if (stack->n_itens == stack->capacity){
+        stack->capacity+=2;
+        stack->node = realloc(stack->node, sizeof(node**) * stack->capacity);
+        stack->node[stack->n_itens++] = nodetmp;
+    }
+    stack->node[stack->n_itens++] = nodetmp;
+}
+
+node* pop(stack* stack){
+    node *tmp = stack->node[--stack->n_itens];
+    return tmp;
+}
+
+int main(){
+    node* A = init('A');
+    node* B = init('B');
+    node* C = init('C');
+    node* D = init('D');
+    node* E = init('E');
+    printf("%c\n", E->letra);
+
+   stack s;
+   init_stack(&s);
+   push(&s, A);
+   push(&s, B);
+
+   push(&s, C);
+   push(&s, D);
+   push(&s, E);
+   while(s.n_itens > 0){
+       node* x = pop(&s);
+       printf("%c\n", x->letra);
+   }
+
+}
