@@ -9,12 +9,10 @@ function square(num: number): number{
     let out: Array<number> = [];
     let array: Array<string> = Array.from(num.toString());
     array.map(x =>{
-        let num = parseInt(x);
-        num = num**2
+        let num: number = parseInt(x)**2;
         out.push(num)
     })
 
-    let output: number= Number(out.join(''))
-    return output;
+    return Number(out.join(''));
 }
-
+console.log(square(input))
